@@ -45,18 +45,15 @@ def clases_grouped(datos):
     lim_sup = []
     mrks = []
     
-    # Itera sobre el número de clases y calcula los límites inferiores, superiores y marcas de clase para cada clase
-    for i in range(clases_redondear - 1):
-        lim_inf.append(round(lim_inf[-1] + ancho, 3))
-        lim_sup.append(round(lim_inf[-2] + ancho, 3))
-        mrks.append(round((lim_inf[-1] + lim_sup[-1]) / 2, 3))
+    for i in range(clases_redondear):
+        lim_inf.append(round(lim_inf[i] + ancho, 3))
+        lim_sup.append(round(lim_inf[i+1], 3))  
+        mrks.append(round((lim_inf[i] + lim_sup[i]) / 2, 3))  
     
-    # Agrega el límite superior máximo y la marca de clase correspondiente a la última clase
-    lim_sup.append(max(datos))
-    mrks.append(round((lim_sup[-1] + lim_inf[-1]) / 2, 3))
     
-    # Convierte la lista de clases en una lista de números enteros (1, 2, 3,...)
+    lim_inf.pop()
+
     clases_num = list(range(1, clases_redondear + 1))
     
-    # Devuelve las clases, límites inferiores, superiores y marcas de clase
-    return clases_num, [round(x, 3) for x in lim_inf], [round(x, 3) for x in lim_sup], [round(x, 3) for x in mrks], clases
+    # Devolvemos las listas redondeadas a tres decimales
+    return clases_num, [round(x, 3) for x in lim_inf], [round(x, 3) for x in lim_sup], [round(x, 3) for x in mrks]
